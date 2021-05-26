@@ -16,6 +16,6 @@ docker pull mongo
 
 # Start Containers
 echo '\nStart-up\n'
-docker compose up --detach
+docker-compose up --detach
 
 echo '\n FINISH'
