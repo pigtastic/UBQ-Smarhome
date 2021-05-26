@@ -16,6 +16,7 @@ services:
     restart: always
     ports:
       - "4000:4000"
+      - "1883":"1883"
     networks:
       - gaia-network
 
