@@ -1,0 +1,11 @@
+overwrite: true
+schema: ./src/schema.ts # You can use .js files as well
+require:
+  - ts-node/register/transpile-only # required if you're using TS-Node
+generates:
+  ./src/types.ts:
+    plugins:
+      - add:
+          content: '/* eslint-disable */'
+      - typescript
+      - typescript-operations
