@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  userinterface:
+    image: pigtastic/gaia-ui:latest
+    restart: always
+    ports:
+      - "4200:80"
+    networks:
+      - gaia-network
+
+  server:
+    image: pigtastic/gaia-server:latest
+    restart: always
+    ports:
+      - "4000:4000"
+    networks:
+      - gaia-network
+
+  mongodb:
+    image: andresvidal/rpi3-mongodb3:latest
+    restart: always
+    ports:
+      - "4001:27017"
+    # volumes:
+    #   - ~/mongo/data:/data/db
+    networks:
+      - gaia-network
+
+networks:
+  gaia-network:
