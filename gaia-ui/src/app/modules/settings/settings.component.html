@@ -1,0 +1,41 @@
+<div class="settingsBorder">
+    <h1>Settings</h1>
+    <div class="settingsLayout" fxLayout="column" fxLayoutAlign="center center"> 
+        <div>
+            <form class="example-form">
+                <h4>Gaia Server</h4>
+                <div>
+                    <mat-form-field style="font-size: 12px" appearance="outline">
+                        <input matInput placeholder="127.0.0.1" [readonly]="isReadonly">
+                    </mat-form-field>
+                    <button mat-icon-button type='button'>
+                        <mat-icon (click)="changeEdit()">{{icon}}</mat-icon>
+                    </button>
+                </div>
+                
+
+            </form>
+        </div>
+            <mat-divider></mat-divider>
+        <div>
+                <h4>Choose a color Theme</h4>
+                <div fxLayout="row">
+                    <button>1</button>
+                    <button>1</button>
+                    <button>1</button>
+                </div>
+        </div>
+            <mat-divider></mat-divider>
+        <div>
+            <h4>Sprache</h4>
+            <mat-form-field appearance="fill" style="font-size: 12px">
+                <mat-select>
+                    <mat-option *ngFor="let language of languages" [value]="language.value">
+                        {{language.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+            <mat-divider></mat-divider>
+    </div>
+</div>

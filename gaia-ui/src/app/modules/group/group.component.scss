@@ -1,0 +1,9 @@
+@import "../../../styles2.scss";
+:host {
+    width: 100%;
+    max-height: calc(100vh - 117px);
+}
+.view {
+    max-height: calc(100vh - 117px);
+    height: 100%;
+}

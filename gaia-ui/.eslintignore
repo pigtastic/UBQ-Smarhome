@@ -1,0 +1,6 @@
+**/node_modules/**
+*/polyfills.ts
+**/environment.ts
+**/environment.prod.ts
+**/*.spec.ts
+**/e2e/**

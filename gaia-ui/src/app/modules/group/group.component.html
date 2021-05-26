@@ -1,0 +1,6 @@
+<div class="view" fxLayout="row">
+    <group-menu *ngIf="!loading" fxFlex="20" [groups]=groups (change)="groupSelected($event)">
+    </group-menu>
+    <group-content *ngIf="!loading" fxFlex [selectedGroup]=selectedGroup (change)="groupSelected($event)">
+    </group-content>
+</div>

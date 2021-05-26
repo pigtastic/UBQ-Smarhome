@@ -1,0 +1,32 @@
+<mat-nav-list class="bottom-navbar" fxLayout="row" fxLayoutAlign="space-around center">
+    <a fxLayout="column" 
+        class="nav-item" 
+        *ngFor="let item of link | slice:0:link.length/2" 
+        mat-list-item
+        [routerLink]="[item.route]" 
+        routerLinkActive="active">
+        <div fxLayout="column" fxLayoutAlign=" center center" fxLayoutGap="5px" class="nav-item-content">
+            <div class="mat-mini-fab" fxLayout="row" fxLayoutAlign="center">
+                <svg-icon src="{{item.icon}}" [svgStyle]="{ 'width.px':40, 'height.px':40 }"></svg-icon>
+            </div>
+            <span>{{item.name}}</span>
+        </div>
+    </a>
+    <button class="mat-fab" fxLayout="row" fxLayoutAlign="center center">
+        <span [ngStyle]="{'font-size': '60px', 'font-weight': '400'}">+</span>
+       <!--svg-icon src='assets/icons/add.svg' [svgStyle]="{ 'width.px':100, 'height.px':100 }"></svg-icon-->
+    </button>
+    <a fxLayout="column" 
+        class="nav-item" 
+        *ngFor="let item of link | slice:link.length/2:link.length" 
+        mat-list-item
+        [routerLink]="[item.route]" 
+        routerLinkActive="active">
+        <div fxLayout="column" fxLayoutAlign=" center center" fxLayoutGap="5px" class="nav-item-content">
+            <div class="mat-mini-fab" fxLayout="row" fxLayoutAlign="center">
+                <svg-icon src="{{item.icon}}" [svgStyle]="{ 'width.px':40, 'height.px':40 }"></svg-icon>
+            </div>
+            <span>{{item.name}}</span>
+        </div>
+    </a>
+</mat-nav-list>

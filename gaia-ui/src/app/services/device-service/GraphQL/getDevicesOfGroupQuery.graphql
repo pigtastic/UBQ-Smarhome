@@ -1,0 +1,16 @@
+query getDevicesOfGroup($groupId: String!) {
+  group(id: $groupId) {
+    id
+    devices {
+      id
+      name
+      fn {
+        power {
+          relay1
+          relay2
+          relay3
+        }
+      }
+    }
+  }
+}

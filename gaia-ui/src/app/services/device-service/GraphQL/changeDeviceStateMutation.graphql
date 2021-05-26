@@ -1,0 +1,10 @@
+mutation changeDeviceState(
+  $deviceId: String!
+  $fn: String!
+  $state: PowerState!
+) {
+  changeState(id: $deviceId, fn: $fn, state: $state) {
+    id
+    name
+  }
+}

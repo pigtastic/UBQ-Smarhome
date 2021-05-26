@@ -1,0 +1,12 @@
+overwrite: true
+schema: http://localhost:4000/graphql # You can use .js files as well
+documents: "**/*.graphql"
+require:
+  - ts-node/register/transpile-only # required if you're using TS-Node
+generates:
+  ./src/app/types.ts:
+    plugins:
+      - add:
+          content: "/* eslint-disable */"
+      - typescript
+      - typescript-operations

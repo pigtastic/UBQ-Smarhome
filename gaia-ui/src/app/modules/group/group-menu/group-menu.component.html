@@ -1,0 +1,19 @@
+<div class="menu-container" fxLayout="column" fxLayoutAlign="center">
+    <div fxLayout="row" fxLayoutAlign="start center" class="control-title">
+
+    </div>
+
+
+    <div class="groups-container scroller" fxLayout="row" fxLayoutAlign="start">
+
+        <ul class="groups">
+            <li fxLayout="row" fxLayoutAlign="start center " *ngFor="let group of groups"
+                [class.selected]="group === selectedGroup" (click)="onSelect(group)">
+                <div fxFlex>{{group.name | uppercase}}</div>
+                <svg-icon *ngIf="group === selectedGroup" src="../../assets/icons/arrow_left.svg"
+                    [svgStyle]="{ 'width.px':20, 'height.px':20}"></svg-icon>
+            </li>
+        </ul>
+    </div>
+
+</div>

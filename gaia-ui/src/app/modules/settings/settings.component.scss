@@ -1,0 +1,32 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  mat-label {
+      font-size: 21px;
+      color: black;
+  }
+
+.settingsLayout {
+    width: 100%;
+}
+
+.settingsBorder {
+    margin-left: 10px;
+}
+
+mat-divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+}
+
+
+// .border {
+//     border:black;
+//     border-style: solid;
+//     border-bottom-width: 1px;
+//     border-radius: 1px;
+// }

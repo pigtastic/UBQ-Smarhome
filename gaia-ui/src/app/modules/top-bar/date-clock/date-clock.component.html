@@ -1,0 +1,4 @@
+<div class="date-clock" fxLayout="row" fxLayoutAlign="space-evenly center">
+    <span>{{today | date:'h:mm a '}} </span>
+    <span *ngIf="media.isActive('gt-sm')"> {{today | date:'d MMM y'}}</span>
+</div>

@@ -1,0 +1,6 @@
+query getAllGroups {
+  groups {
+    id
+    name
+  }
+}

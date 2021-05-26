@@ -1,0 +1,33 @@
+$primary: #008b29;
+$secondary: #474747;
+$tertiary: #333333;
+
+:host {
+    color: white;
+}
+ul,
+li {
+    list-style: none;
+}
+
+.mat-list-item {
+    color: white;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+// Scrollbar for Firefox
+.scroller {
+    scrollbar-color: $primary transparent; /* thumb and track color */
+    scrollbar-width: thin;
+}
+// Scrollbar for Chrome, Safari, Opera
+.scroller::-webkit-scrollbar {
+    width: 4px;
+}
+.scroller::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: 5px;
+}

@@ -1,0 +1,56 @@
+@import "../../../../styles2.scss";
+:host {
+  background-color: $secondary;
+}
+
+.control-title {
+  height: 80px;
+  padding: 0 0em 0 2em;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.groups-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.groups {
+  margin: 0 0 0 0;
+  list-style-type: none;
+  padding: 0;
+  font-size: 13px;
+  width: 100%;
+  position: start;
+}
+.groups li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  width: 100%;
+  padding: 0 0em 0 2em;
+  border-radius: 4px;
+  height: 50px;
+}
+.groups li:hover {
+  background-color: darken($secondary, 5%);
+}
+.groups li.selected {
+  background-color: darken($secondary, 5%);
+  color: $primary;
+  svg-icon {
+    fill: $primary;
+  }
+}
+.groups li.selected:hover {
+  background-color: lighten($secondary, 5%);
+}
+
+.groups-item {
+  position: start;
+  display: block;
+  text-align: start;
+}
