@@ -1,3 +1,3 @@
 # gaia-starter
 
-Clone and run "cd gaia-starter && ./start.sh"
+Change directory to linux/raspi and execute start.sh
