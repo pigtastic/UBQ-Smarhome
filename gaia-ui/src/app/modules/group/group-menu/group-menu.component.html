@@ -1,19 +1,75 @@
-<div class="menu-container" fxLayout="column" fxLayoutAlign="center">
-    <div fxLayout="row" fxLayoutAlign="start center" class="control-title">
+<div fxFill class="menu-container" fxLayout="column">
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="start center" class="control-title">
 
     </div>
+    <div fxFlex class="groups-container scroller" fxLayout="row" fxLayoutAlign="start">
 
+        <ng-container [ngTemplateOutlet]="editMode ? EditMode : NotEditMode"></ng-container>
 
-    <div class="groups-container scroller" fxLayout="row" fxLayoutAlign="start">
+        <ng-template #NotEditMode>
+            <div fxLayout="column" fxFill>
+                <ul class="groups" fxFlex>
+                    <div fxLayout="column" *ngFor="let group of groups">
+                        <div fxLayout="row" fxFill>
+                            <li class="item" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center"
+                                [class.selected]="group === selectedGroup" (click)="onSelect(group)">
 
-        <ul class="groups">
-            <li fxLayout="row" fxLayoutAlign="start center " *ngFor="let group of groups"
-                [class.selected]="group === selectedGroup" (click)="onSelect(group)">
-                <div fxFlex>{{group.name | uppercase}}</div>
-                <svg-icon *ngIf="group === selectedGroup" src="../../assets/icons/arrow_left.svg"
-                    [svgStyle]="{ 'width.px':20, 'height.px':20}"></svg-icon>
-            </li>
-        </ul>
+                                <div fxFlex>{{group.name | uppercase}}</div>
+                                <svg-icon *ngIf="group === selectedGroup" src="../../assets/icons/arrow_left.svg"
+                                    [svgStyle]="{ 'width.px':20, 'height.px':20}"></svg-icon>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+                <div fxLayoutAlign="end center" fxFlex="10">
+                    <button class="edit-button" type="button" mat-button (click)="editMode=true">
+                        <mat-icon class="icon" svgIcon="edit"></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #EditMode>
+            <div fxLayout="column" fxFill>
+                <ul class="groups" fxFlex>
+                    <div fxLayout="column" *ngFor="let group of groups">
+                        <div fxLayout="row" fxFill>
+                            <button *ngIf="group.id !== 'allDevices'" mat-button (click)=deleteGroup(group)>
+                                <mat-icon svgIcon="trash"></mat-icon>
+                            </button>
+                            <li class="item" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center"
+                                [class.selected]="group === selectedGroup" (click)="onSelect(group)">
+
+                                <div fxFlex>{{group.name | uppercase}}</div>
+                                <svg-icon *ngIf="group === selectedGroup" src="../../assets/icons/arrow_left.svg"
+                                    [svgStyle]="{ 'width.px':20, 'height.px':20}"></svg-icon>
+                            </li>
+                        </div>
+                    </div>
+                    <li *ngIf="!addGroupActive" class="item" (click)="addGroupActive=true" fxLayoutAlign="start center">
+                        <mat-icon class="add-icon" svgIcon="add">
+                        </mat-icon>
+                    </li>
+                    <li fxLayoutAlign="start center" class="addGroupListItem" *ngIf="addGroupActive">
+                        <form [formGroup]="addGroupForm" fxLayout="row" fxLayoutGap="5px" class="form-container">
+                            <input type="text" xFlex="1 1 auto" class="form-input" id="text"
+                                formControlName="groupName">
+                            <button mat-raised-button (click)="addGroupActive=false" class="inputButton">
+                                <mat-icon class="icon" svgIcon="trash"></mat-icon>
+                            </button>
+                            <button mat-raised-button color="primary" (click)="addGroup()" class="inputButton">
+                                <mat-icon class="icon" svgIcon="add"></mat-icon>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+                <div fxLayoutAlign="end center" fxFlex="10">
+                    <button class="edit-button" type="button" mat-button (click)="editMode=false; addGroupActive=false">
+                        <mat-icon class="icon" svgIcon="lock"></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </ng-template>
     </div>
 
 </div>

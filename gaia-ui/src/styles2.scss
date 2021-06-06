@@ -18,6 +18,11 @@ li {
     text-transform: uppercase;
 }
 
+.scroll-container {
+    max-height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 // Scrollbar for Firefox
 .scroller {
     scrollbar-color: $primary transparent; /* thumb and track color */
@@ -30,4 +35,12 @@ li {
 .scroller::-webkit-scrollbar-thumb {
     background: $primary;
     border-radius: 5px;
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index-2 {
+    z-index: 2;
 }

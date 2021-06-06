@@ -1,6 +1,8 @@
 import {
   Component, OnInit, Input, Output, EventEmitter,
 } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { GroupService } from '@src/app/services/group-service/group.service';
 import { Group } from '../../../types';
 
 @Component({
@@ -17,7 +19,16 @@ export class GroupMenuComponent implements OnInit {
 
   selectedGroup: Group;
 
-  constructor() { }
+  addGroupActive = false;
+
+  editMode = false;
+
+  addGroupForm = this.formBuilder.group({ groupName: '' });
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private groupService: GroupService,
+  ) { }
 
   ngOnInit(): void {
     this.onSelect(this.groups[0]);
@@ -26,5 +37,17 @@ export class GroupMenuComponent implements OnInit {
   onSelect(group: Group): void {
     this.selectedGroup = group;
     this.change.emit(this.selectedGroup);
+  }
+
+  addGroup() {
+    if (this.addGroupForm.value.groupName.length > 0) {
+      this.groupService.addGroup(this.addGroupForm.value.groupName).subscribe();
+    }
+    this.addGroupActive = false;
+  }
+
+  deleteGroup(group: Group) {
+    this.groupService.removeGroup(group.id).subscribe();
+    this.onSelect(this.groups[0]);
   }
 }

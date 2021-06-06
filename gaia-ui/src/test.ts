@@ -7,14 +7,7 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
-declare const require: {
-  // eslint-disable-next-line no-unused-vars
-  context(path: string, deep?: boolean, filter?: RegExp): {
-    keys(): string[];
-    // eslint-disable-next-line no-unused-vars
-    <T>(id: string): T;
-  };
-};
+declare const require: any;
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(

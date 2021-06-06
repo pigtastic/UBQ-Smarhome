@@ -1,4 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import {
+  Component, Input, OnInit, Output,
+} from '@angular/core';
+import { environment } from '@src/environments/environment';
 
 interface Language {
   value: string;
@@ -24,6 +27,8 @@ export class SettingsComponent {
 
   isReadonly = true;
 
+  public server = '';
+
   public changeEdit() {
     if (this.icon === 'edit') {
       this.icon = 'check';
@@ -31,6 +36,9 @@ export class SettingsComponent {
     } else {
       this.icon = 'edit';
       this.isReadonly = !this.isReadonly;
+      if (this.server.length > 0) {
+        environment.server.url = this.server;
+      }
     }
   }
 }

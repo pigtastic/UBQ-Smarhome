@@ -1,19 +1,19 @@
 <div class="settingsBorder">
     <h1>Settings</h1>
-    <div class="settingsLayout" fxLayout="column" fxLayoutAlign="center center"> 
+    <div class="settingsLayout" fxLayout="column">
         <div>
             <form class="example-form">
                 <h4>Gaia Server</h4>
                 <div>
                     <mat-form-field style="font-size: 12px" appearance="outline">
-                        <input matInput placeholder="127.0.0.1" [readonly]="isReadonly">
+                        <label>
+                            <input matInput placeholder="127.0.0.1" [(ngModel)]="server" [readonly]="isReadonly" name="server">
+                        </label>
                     </mat-form-field>
                     <button mat-icon-button type='button'>
                         <mat-icon (click)="changeEdit()">{{icon}}</mat-icon>
                     </button>
                 </div>
-                
-
             </form>
         </div>
             <mat-divider></mat-divider>

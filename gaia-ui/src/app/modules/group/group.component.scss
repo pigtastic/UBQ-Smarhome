@@ -1,9 +1,38 @@
 @import "../../../styles2.scss";
-:host {
-    width: 100%;
-    max-height: calc(100vh - 117px);
-}
 .view {
-    max-height: calc(100vh - 117px);
     height: 100%;
+}
+
+.top-container {
+    z-index: 2;
+    box-shadow: 10px 5px 5px black;
+}
+
+.background-color {
+    background-color: $tertiary;
+}
+
+.burger-icon {
+    fill: white;
+    height: 50px;
+    width: 30px;
+}
+
+.group-title {
+    font-size: x-large;
+    margin: 5px;
+}
+
+.add-icon {
+    fill: white;
+    height: 40px;
+}
+
+.add-button {
+    height: 60px;
+    background-color: $primary;
+}
+
+mat-drawer {
+    min-width: 50%;
 }

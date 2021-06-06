@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
 import { MatButton } from '@angular/material/button';
 
 export interface link {
@@ -17,25 +18,25 @@ export class BottomNavbarComponent {
   link: link[] = [
     {
       name: 'Dashboard',
-      icon: 'assets/icons/dash.svg',
+      icon: 'dashboard',
       route: 'dashboard',
     },
     {
-      name: 'categories',
-      icon: '',
+      name: 'Categories',
+      icon: 'category',
       route: 'category',
     },
     {
       name: 'Groups',
-      icon: '',
+      icon: 'group',
       route: 'group',
     },
     {
       name: 'Settings',
-      icon: '',
+      icon: 'settings',
       route: 'settings',
     },
   ];
 
-  constructor() { }
+  constructor(public media: MediaObserver) { }
 }

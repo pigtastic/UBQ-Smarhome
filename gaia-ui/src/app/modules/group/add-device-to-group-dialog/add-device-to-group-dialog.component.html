@@ -1,0 +1,16 @@
+<div fxLayout="column" fxLayoutGap="20px">
+
+    <span>Select the Devices you want to add to {{group.name}}</span>
+    <mat-form-field appearance="fill">
+        <mat-label>Devices</mat-label>
+        <mat-select [formControl]="devices" multiple>
+            <mat-option *ngFor="let device of allDevices" [value]="device">{{device.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button [mat-dialog-close]="false">CLOSE</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="addDevices()">
+            SAVE
+        </button>
+    </mat-dialog-actions>
+</div>

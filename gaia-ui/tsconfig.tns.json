@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "src/*.tns.ts",
+        "src/*.ts"
+      ]
+    }
+  },
+  "files": [
+    "src/main.tns.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ],
+  "allowSyntheticDefaultImports": true,
+  "typeRoots": ["src/@types","node_modules/@types"]
+}

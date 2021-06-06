@@ -1,0 +1,5 @@
+mutation addDeviceToGroup($groupId: String!, $deviceId: String!) {
+  addDeviceToGroup(groupId: $groupId, deviceId: $deviceId) {
+    id
+  }
+}

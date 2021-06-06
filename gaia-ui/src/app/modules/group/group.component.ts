@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Component, OnInit, Input } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
 import { DeviceService } from '../../services/device-service/device.service';
 import { GroupService } from '../../services/group-service/group.service';
 import { Group } from '../../types';
@@ -10,6 +11,9 @@ import { Group } from '../../types';
   styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent {
+  // Mobile sidenav
+  opened = false
+
   selectedGroup: Group;
 
   devices: any[];
@@ -18,9 +22,14 @@ export class GroupComponent {
 
   groups: Group[] = [];
 
-  constructor(private deviceService: DeviceService, private groupService: GroupService) {
+  constructor(
+    private deviceService: DeviceService,
+    private groupService: GroupService,
+    public media: MediaObserver,
+  ) {
     this.loading = true;
     this.groupService.getAllGroups().subscribe(({ data, loading }) => {
+      this.groups = [];
       this.groups.push({ id: 'allDevices', name: 'All Devices' });
       data.groups.forEach((group) => {
         this.groups.push(group);
@@ -34,5 +43,6 @@ export class GroupComponent {
   // eslint-disable-next-line no-shadow
   groupSelected(group: Group) {
     this.selectedGroup = group;
+    this.opened = false;
   }
 }

@@ -1,6 +1,39 @@
-<div class="view" fxLayout="row">
-    <group-menu *ngIf="!loading" fxFlex="20" [groups]=groups (change)="groupSelected($event)">
-    </group-menu>
-    <group-content *ngIf="!loading" fxFlex [selectedGroup]=selectedGroup (change)="groupSelected($event)">
-    </group-content>
-</div>
+
+<ng-container [ngTemplateOutlet]=" media.isActive('xs') ? mobile : desktop"></ng-container>
+
+
+<ng-template #desktop>
+    <div class="view" fxLayout="row">
+        <group-menu *ngIf="!loading" fxLayout="column" fxFill fxFlex="20" [groups]=groups
+            (change)="groupSelected($event)">
+        </group-menu>
+        <group-content class="scroll-container" *ngIf="!loading" fxFlex [selectedGroup]=selectedGroup
+            (change)="groupSelected($event)">
+        </group-content>
+    </div>
+</ng-template>
+
+<ng-template #mobile>
+    <mat-drawer-container class="view" hasBackdrop="true">
+        <mat-drawer [(opened)]="opened" class="background-color" #drawer mode="over">
+            <group-menu *ngIf="!loading" [groups]=groups (change)="groupSelected($event)">
+            </group-menu>
+        </mat-drawer>
+        <mat-drawer-content fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="space-between center"
+                class="background-color mat-elevation-z4 z-index-1">
+                <button type="button" mat-button (click)="drawer.toggle()">
+                    <mat-icon class="burger-icon" svgIcon="burger-menu"></mat-icon>
+                </button>
+                <div class="group-title" *ngIf="!loading">{{selectedGroup.name}}</div>
+                <button class="add-button" type="button" mat-button>
+                    <mat-icon class="add-icon" svgIcon="add"></mat-icon>
+                </button>
+            </div>
+            <group-content class="scroll-container" *ngIf="!loading" fxFlex [selectedGroup]=selectedGroup
+                (change)="groupSelected($event)">
+            </group-content>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</ng-template>
+

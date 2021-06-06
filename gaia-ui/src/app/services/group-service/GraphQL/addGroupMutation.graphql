@@ -1,0 +1,5 @@
+mutation addGroup($name: String!) {
+  addGroup(name: $name) {
+    id
+  }
+}

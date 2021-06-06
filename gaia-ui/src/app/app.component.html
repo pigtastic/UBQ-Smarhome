@@ -1,3 +1,27 @@
-<top-bar></top-bar>
-<router-outlet></router-outlet>
-<bottom-navbar></bottom-navbar>
+<ng-container [ngTemplateOutlet]=" media.isActive('xs') ? mobile : desktop"></ng-container>
+
+
+<ng-template #desktop>
+    <div fxLayout="column">
+        <div class="header">
+            <top-bar></top-bar>
+        </div>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="footer">
+            <bottom-navbar></bottom-navbar>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #mobile>
+    <div fxLayout="column">
+        <div class="mobile-content">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="footer">
+            <bottom-navbar></bottom-navbar>
+        </div>
+    </div>
+</ng-template>

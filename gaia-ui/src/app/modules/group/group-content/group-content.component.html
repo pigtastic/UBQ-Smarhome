@@ -1,3 +1,13 @@
+<div fxLayout="row" fxLayoutAlign="space-between">
+    <div class="group-title"> {{selectedGroup.name}}</div>
+    <button class="edit-button" type="button" mat-button (click)="openAddDeviceToGroupDialog()">
+        <mat-icon class="icon" svgIcon="add"></mat-icon>
+    </button>
+
+</div>
 <div fxLayout="row wrap">
-    <lightWidget class="widget" *ngFor="let device of devices" [device]="device"></lightWidget>
+    <ng-container *ngFor="let device of devices">
+        <light-widget *ngIf="device.category === 'LIGHT'" class="widget" [device]="device"></light-widget>
+        <sensor-widget *ngIf="device.category === 'SENSOR'" class="widget" [device]="device"></sensor-widget>
+    </ng-container>
 </div>

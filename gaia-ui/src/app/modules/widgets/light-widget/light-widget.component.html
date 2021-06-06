@@ -1,0 +1,32 @@
+<div [ngClass]="device.fn?.dim ? 'widget-wide' : 'widget-base'">
+    <ng-container [ngTemplateOutlet]="device.fn?.dim ? powerAndDim : onlyPower"></ng-container>
+</div>
+
+<ng-template #onlyPower>
+    <div fxLayout="column" fxFill fxLayoutAlign="space-between ">
+        <div class="widget-title">
+            {{device.name}}
+        </div>
+        <div class="base-toggle" fxLayoutAlign="end center" *ngFor="let relay of powerMap">
+            <mat-slide-toggle *ngIf="relay.state !== null" [name]=relay.key [checked]="relay.state"
+                (change)="changeState($event)"></mat-slide-toggle>
+            <div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #powerAndDim>
+    <div fxLayout="row">
+        <div class="widget-title">
+            {{device.name}}
+        </div>
+        <div *ngFor="let relay of powerMap">
+            <mat-slide-toggle *ngIf="relay.state !== null" [name]=relay.key [checked]="relay.state"
+                (change)="changeState($event)"></mat-slide-toggle>
+            <div>
+            </div>
+        </div>
+    </div>
+    <mat-slider></mat-slider>
+</ng-template>

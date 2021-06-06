@@ -1,8 +1,10 @@
 import {
   Component, Input, OnChanges, OnInit, SimpleChanges,
 } from '@angular/core';
-import { Group } from 'src/app/types';
+import { MatDialog } from '@angular/material/dialog';
+import { Device, Group } from 'src/app/types';
 import { DeviceService } from '../../../services/device-service/device.service';
+import { AddDeviceToGroupDialogComponent } from '../add-device-to-group-dialog/add-device-to-group-dialog.component';
 
 @Component({
   selector: 'group-content',
@@ -15,9 +17,9 @@ export class GroupContentComponent implements OnInit, OnChanges {
 
   loading: boolean;
 
-  devices: any;
+  devices: Device[];
 
-  constructor(private deviceService: DeviceService) { }
+  constructor(private deviceService: DeviceService, private dialog: MatDialog) { }
 
   // eslint-disable-next-line class-methods-use-this
   ngOnChanges(changes: SimpleChanges): void {
@@ -49,6 +51,12 @@ export class GroupContentComponent implements OnInit, OnChanges {
     this.deviceService.getAllDevices().subscribe(({ data, loading }) => {
       this.loading = loading;
       this.devices = data.devices;
+    });
+  }
+
+  openAddDeviceToGroupDialog() {
+    this.dialog.open(AddDeviceToGroupDialogComponent, {
+      data: { group: this.selectedGroup },
     });
   }
 }

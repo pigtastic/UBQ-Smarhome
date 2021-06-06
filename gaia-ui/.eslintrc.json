@@ -21,6 +21,7 @@
         "no-empty-function": ["error", { "allow": ["constructors"] }],
         "prefer-destructuring":"off",
         "no-unused-vars": "warn",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "class-methods-use-this": "off"
     }
 }

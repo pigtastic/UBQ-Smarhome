@@ -1,9 +1,6 @@
-# gaia-ui
+# gaia-app
 
-
-[![Docker_Image_Github_CD](https://github.com/pigtastic/gaia-ui/actions/workflows/continuous-delivery-github.yml/badge.svg)](https://github.com/pigtastic/gaia-ui/actions/workflows/continuous-delivery-github.yml) [![Docker_Image_Dockerhub_CD](https://github.com/pigtastic/gaia-ui/actions/workflows/continuous-delivery-dockerhub.yml/badge.svg)](https://github.com/pigtastic/gaia-ui/actions/workflows/continuous-delivery-dockerhub.yml) ![Docker Pulls](https://img.shields.io/docker/pulls/pigtastic/gaia-ui)
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.0.
 
 ## Development server
 
