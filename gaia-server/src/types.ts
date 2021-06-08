@@ -12,19 +12,28 @@ export type Scalars = {
   Float: number;
 };
 
+export enum Category {
+  Default = 'Default',
+  Light = 'Light',
+  Sensor = 'Sensor'
+}
+
 export type Device = {
   __typename?: 'Device';
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   groups?: Maybe<Array<Maybe<Group>>>;
   mqttTopic?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
+  gateway?: Maybe<Scalars['String']>;
+  category?: Maybe<Category>;
   fn?: Maybe<Functions>;
 };
 
 export type Functions = {
   __typename?: 'Functions';
   power?: Maybe<Power>;
+  dim?: Maybe<Scalars['String']>;
+  sensor?: Maybe<Sensor>;
 };
 
 export type Group = {
@@ -38,9 +47,11 @@ export type Mutation = {
   __typename?: 'Mutation';
   addDevice?: Maybe<Device>;
   changeState?: Maybe<Device>;
-  addMqttDevice?: Maybe<Device>;
+  handleMqttPublish?: Maybe<Scalars['Boolean']>;
   addDeviceToGroup?: Maybe<Group>;
+  addDeviceToCategory?: Maybe<Scalars['Boolean']>;
   addGroup?: Maybe<Group>;
+  removeGroup?: Maybe<Group>;
 };
 
 
@@ -57,8 +68,8 @@ export type MutationChangeStateArgs = {
 };
 
 
-export type MutationAddMqttDeviceArgs = {
-  gateway: Scalars['String'];
+export type MutationHandleMqttPublishArgs = {
+  topic: Scalars['String'];
   payload: Scalars['String'];
 };
 
@@ -69,8 +80,19 @@ export type MutationAddDeviceToGroupArgs = {
 };
 
 
+export type MutationAddDeviceToCategoryArgs = {
+  category: Category;
+  deviceId: Scalars['String'];
+};
+
+
 export type MutationAddGroupArgs = {
   name: Scalars['String'];
+};
+
+
+export type MutationRemoveGroupArgs = {
+  id: Scalars['ID'];
 };
 
 export type Power = {
@@ -89,6 +111,7 @@ export type Query = {
   __typename?: 'Query';
   devices?: Maybe<Array<Maybe<Device>>>;
   device?: Maybe<Device>;
+  getDevicesOfCategory?: Maybe<Array<Maybe<Device>>>;
   groups?: Maybe<Array<Maybe<Group>>>;
   group?: Maybe<Group>;
 };
@@ -99,8 +122,18 @@ export type QueryDeviceArgs = {
 };
 
 
+export type QueryGetDevicesOfCategoryArgs = {
+  category: Category;
+};
+
+
 export type QueryGroupArgs = {
   id: Scalars['String'];
+};
+
+export type Sensor = {
+  __typename?: 'Sensor';
+  sensor1?: Maybe<Scalars['String']>;
 };
 
 export type Subscription = {

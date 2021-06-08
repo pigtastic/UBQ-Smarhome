@@ -2,8 +2,10 @@ import { PubSub } from 'apollo-server';
 import { Injectable } from 'graphql-modules';
 
 import { MongoConnector } from '../../../common/mongo.connector';
-import { IHandler } from '../../../protocols/mqtt/handler/IHandler';
+import { AbstractHandler } from '../../../protocols/mqtt/handler/AbstractHandler';
+import { MqttGaiaHandler } from '../../../protocols/mqtt/handler/MqttGaiaHandler';
 import { MqttTasmotaHandler } from '../../../protocols/mqtt/handler/MqttTasmotaHandler';
+import { Category, Device } from '../../../types';
 import { ensureObjectID } from '../../../utils/ensure-object-id';
 import { Groups } from '../../group/providers/groups';
 
@@ -11,9 +13,9 @@ const { ObjectId } = require('mongodb');
 
 const pubsub = new PubSub();
 
-let handlers: [IHandler];
+let handlers: Array<AbstractHandler> = [];
 // eslint-disable-next-line prefer-const
-handlers = [new MqttTasmotaHandler()];
+handlers = [new MqttTasmotaHandler(), new MqttGaiaHandler()];
 
 @Injectable()
 export class Devices {
@@ -21,33 +23,18 @@ export class Devices {
     throw new Error('Method not implemented.');
   }
 
-  async addMqttDevice(gateway: any, payload: any) {
-    const jPayload = JSON.parse(payload);
-    const power = {};
-
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < jPayload.rl.length; i++) {
-      if (jPayload.rl[i] === 1) {
-        power[`relay${i + 1}`] = 'OFF';
-      }
-    }
-
-    console.log(JSON.parse(payload));
-    console.log(power);
-
-    const query = {
-      name: 'default',
-      gateway,
-      mqttTopic: jPayload.t,
-      fn: { power },
-    };
+  async handleMqttPublish(topic: string, payload: string) {
     const mongoDevices = this.mongoDevices();
-    const device = await mongoDevices.insertOne(query);
-    console.log(`addDevice: ${device.ops[0]._id} , ${device.ops[0].name}`);
-    return device.ops[0];
+    // eslint-disable-next-line consistent-return
+    handlers.forEach((handler) => {
+      if (handler.canHandle(topic)) {
+        return handler.handleMqttPublish(topic, payload, mongoDevices);
+      }
+    });
+    return false;
   }
 
-  async getDeviceById(id: string) {
+  async getDeviceById(id: string): Promise<Device> {
     console.log(`Devices - getDeviceById: ${id}`);
     const mongoDevices = this.mongoDevices();
     return mongoDevices.findOne({ _id: ensureObjectID(id) });
@@ -60,6 +47,7 @@ export class Devices {
     return mongoDevices.find({}).toArray();
   }
 
+  // TODO:Sollte allgemein sein, kein mqtt topic
   async addDevice(name: string, mqttTopic: string) {
     const query = {
       name,
@@ -73,7 +61,6 @@ export class Devices {
 
   removeDevice(id: string) {
     console.log(id);
-
     // #Todo
   }
 
@@ -91,7 +78,7 @@ export class Devices {
   }
 
   async getAllDevicesById(deviceIds: string []) {
-    const devices: Devices [] = [];
+    const devices: Device [] = [];
     // eslint-disable-next-line no-restricted-syntax
     for (const deviceId of deviceIds) {
       // eslint-disable-next-line no-await-in-loop
@@ -103,28 +90,26 @@ export class Devices {
 
   // id = 234234 fn: power.relay1 state on
   async changeState(id: string, fn: string, state?: string) {
-    const mongoDevices = this.mongoDevices();
-    const key = `fn.${fn}`;
-
-    await mongoDevices.updateOne(
-      { _id: new ObjectId(id) }, // Filter
-      { $set: { [key]: state } }, // Update
-    );
     const device = await this.getDeviceById(id);
 
     handlers.forEach((handler) => {
       if (handler.canHandle(device.gateway as String)) {
         console.log(`Handle ${fn} ${state} for Device ${device.name}`);
-        handler.handle(device.mqttTopic, fn, state);
+        handler.handleChangeState(device, fn, state, this.mongoDevices());
       }
     });
 
-    return device;
+    return this.getDeviceById(id);
   }
 
   async getDevicesOf(groupId: any) {
     const mongoDevices = this.mongoDevices();
     return mongoDevices.find({ groups: ensureObjectID(groupId) }).toArray();
+  }
+
+  async getDevicesOfCategory(category: Category) {
+    const mongoDevices = this.mongoDevices();
+    return mongoDevices.find({ category }).toArray();
   }
 
   async addDeviceToGroup(groupId: any, deviceId: any) {
@@ -140,6 +125,17 @@ export class Devices {
     );
 
     return new Groups().getGroupById(groupId);
+  }
+
+  async addDeviceToCategory(category: Category, deviceId: any) {
+    console.log('Add Device To Category');
+
+    await this.mongoDevices().updateOne(
+      { _id: ensureObjectID(deviceId) },
+      { $set: { category } },
+    );
+    // TODO: Return correct bool for update of mongo db
+    return true;
   }
 
   mongoDevices() {

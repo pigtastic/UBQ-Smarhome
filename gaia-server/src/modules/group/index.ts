@@ -23,6 +23,7 @@ export const GroupModule = createModule({
         extend type Mutation {
             addGroup(name: String!): Group
 #            renameGroup(id: String!, name: String!): Group
+            removeGroup(id: ID!): Group
         }
     `,
 });

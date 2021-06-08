@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prodServer": "export NODE_ENV=prod && npm run start",
     "devServer": "export NODE_ENV=dev && npm run liveServer",
     "liveServer": "nodemon -e '*.ts, *.json' --exec npm run start",
+    "prodServer": "export NODE_ENV=prod && npm run start",
     "start": "npx tsc && node -r dotenv/config ./dist/main.js",
     "debug-server": "nodemon --inspect -e '*.ts, *.json' --exec npm run start",
     "lint": "eslint --quiet **/src/**/*.ts",

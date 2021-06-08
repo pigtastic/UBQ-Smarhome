@@ -22,8 +22,6 @@ mqtt.on('unsubscribe', (subscriptions, client:Client) => {
 
 mqtt.on('publish', (packet) => {
   const { topic } = packet;
-  // eslint-disable-next-line no-var
-  var payload = packet.payload ? packet.payload.toString() : payload;
 
   if (topic.startsWith('$SYS')) return; // System message
 
@@ -32,22 +30,18 @@ mqtt.on('publish', (packet) => {
   //   client.id = '$BROKER';
   // }
 
-  // console.debug('Client %s PUBLISH on %s: %s', client.id, packet.topic, packet.payload);
-
-  if (packet.topic.startsWith('tasmota/discovery') && packet.topic.endsWith('config')) {
-    graphQLMutation(packet.payload.toString()).catch((error) => console.error(error));
-  }
+  graphQLMutation(packet.topic, packet.payload.toString()).catch((error) => console.error(error));
 });
 
-async function graphQLMutation(payload) {
+async function graphQLMutation(topic, payload) {
   const graphQLClient = new GraphQLClient(graphqlEndpoint, {});
 
   const mutation = gql`
-  mutation ($gateway: String!, $payload: String!) { addMqttDevice(gateway: $gateway, payload: $payload) {id}}
+  mutation ($topic: String!, $payload: String!) { handleMqttPublish(topic: $topic, payload: $payload) }
 `;
 
   const variables = {
-    gateway: 'TASMOTA',
+    topic,
     payload,
   };
 

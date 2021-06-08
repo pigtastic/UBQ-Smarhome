@@ -8,7 +8,8 @@ export default {
     groups: (device: any, _args: {}, { injector }: GraphQLModules.Context) =>
       injector.get(Groups).getGroupsOf(device._id),
     mqttTopic: (device: any) => device.mqttTopic,
-    state: (device: any) => device.state,
+    gateway: (device: any) => device.gateway,
+    category: (device: any) => device.category,
     fn: (device: any) => device.fn,
   },
 };

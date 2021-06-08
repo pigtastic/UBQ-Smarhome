@@ -3,6 +3,9 @@ FROM node:12-alpine
 # Create app directory
 WORKDIR /usr/src/app
 
+#Set env
+#ENV NODE_ENV=prod
+
 # Install app dependencies
 COPY package*.json ./
 

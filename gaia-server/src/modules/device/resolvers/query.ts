@@ -7,5 +7,7 @@ export default {
       injector.get(Devices).getAllDevices(),
     device: (_root: any, { id }: any, { injector }: GraphQLModules.Context) =>
       injector.get(Devices).getDeviceById(id),
+    getDevicesOfCategory: (_root: any, { category }: any, { injector }: GraphQLModules.Context) =>
+      injector.get(Devices).getDevicesOfCategory(category),
   },
 };

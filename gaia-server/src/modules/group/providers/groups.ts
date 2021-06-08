@@ -6,18 +6,18 @@ import { Devices } from '../../device/providers/devices';
 
 @Injectable()
 export class Groups {
-  mongoDevices() {
+  mongoGroups() {
     return MongoConnector.client.db('gaiadb2').collection('groups');
   }
 
   async getGroupById(id: string): Promise<any> {
     console.log(`Group - getGroupById: ${id}`);
-    return this.mongoDevices().findOne({ _id: ensureObjectID(id) });
+    return this.mongoGroups().findOne({ _id: ensureObjectID(id) });
   }
 
   async getAllGroups() {
     console.log('Group.Operations.getAllGroups');
-    const mongoGroups = this.mongoDevices();
+    const mongoGroups = this.mongoGroups();
     return mongoGroups.find({}).toArray();
   }
 
@@ -25,12 +25,13 @@ export class Groups {
     const query = {
       name,
     };
-    const group = await this.mongoDevices().insertOne(query);
+    const group = await this.mongoGroups().insertOne(query);
     console.log(`addGroup: ${group.ops[0]._id} , ${group.ops[0].name}`);
     return group.ops[0];
   }
 
   removeGroup(id: string) {
+    this.mongoGroups().deleteOne({ _id: ensureObjectID(id) });
     console.log(id);
 
     // #Todo
@@ -40,7 +41,7 @@ export class Groups {
     // #FIXME: Gruppe wird nicht umbenannt
     console.log('Rename Group');
 
-    const group = await this.mongoDevices().updateOne(
+    const group = await this.mongoGroups().updateOne(
       { _id: ensureObjectID(id) }, // Filter
       { $set: { name } }, // Update
     );
@@ -54,6 +55,8 @@ export class Groups {
     const groups: Groups [] = [];
     // eslint-disable-next-line no-restricted-syntax
     for (const groupId of device.groups) {
+      // eslint-disable-next-line no-await-in-loop
+      // @ts-ignore
       // eslint-disable-next-line no-await-in-loop
       const temp = await this.getGroupById(groupId);
       groups.push(temp);

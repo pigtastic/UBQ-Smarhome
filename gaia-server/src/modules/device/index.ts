@@ -15,13 +15,15 @@ export const DeviceModule = createModule({
             name: String
             groups: [Group]
             mqttTopic: String
-            state: String
+            gateway: String
+            category: Category
             fn: Functions
         }
         
         type Functions {
           power: Power
           dim: String
+          sensor: Sensor
         }
         
         type Power {
@@ -30,21 +32,32 @@ export const DeviceModule = createModule({
           relay3: PowerState
         }
         
+        type Sensor {
+          sensor1: String
+        }
+        
         enum PowerState {
           ON
           OFF
+        }
+        
+        enum Category {
+          Default,
+          Light,
+          Sensor
         }
  
         type Query {
             devices: [Device]
             device(id: String!): Device
-            
+            getDevicesOfCategory(category: Category!): [Device]
         }
         type Mutation {
             addDevice(name: String!, mqttTopic: String!): Device
             changeState(id: String!, fn: String!, state: PowerState!): Device
-            addMqttDevice(gateway: String!, payload: String!): Device
+            handleMqttPublish(topic: String!, payload: String!): Boolean
             addDeviceToGroup(groupId: String!, deviceId: String!): Group
+            addDeviceToCategory(category: Category!, deviceId: String!): Boolean
         }
         
         type Subscription {
