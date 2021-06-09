@@ -26,6 +26,7 @@ export class GroupContentComponent implements OnInit, OnChanges {
     if (this.selectedGroup.id === 'allDevices') {
       this.getAllDevices();
     } else {
+      // TODO Subscription
       this.getGroupDevices();
     }
   }
@@ -35,6 +36,7 @@ export class GroupContentComponent implements OnInit, OnChanges {
       if (this.selectedGroup.id === 'allDevices') {
         this.getAllDevices();
       } else {
+        // TODO Subscription
         this.getGroupDevices();
       }
     }
@@ -43,6 +45,7 @@ export class GroupContentComponent implements OnInit, OnChanges {
   getGroupDevices() {
     this.deviceService.getDevicesByGroup(this.selectedGroup.id).subscribe(({ data, loading }) => {
       this.loading = loading;
+      console.log(data.group.devices);
       this.devices = data.group.devices;
     });
   }

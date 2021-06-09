@@ -10,3 +10,4 @@ generates:
           content: "/* eslint-disable */"
       - typescript
       - typescript-operations
+      - "typescript-apollo-angular"

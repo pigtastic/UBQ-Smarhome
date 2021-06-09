@@ -1,0 +1,31 @@
+<div fxFill class="menu-container" fxLayout="column">
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="start center" class="control-title">
+
+    </div>
+    <div fxFlex class="groups-container scroller" fxLayout="row" fxLayoutAlign="start">
+            <div fxLayout="column" fxFill>
+                <ul class="groups" fxFlex>
+                    <div fxLayout="column" *ngFor="let category of categories">
+                        <div *ngIf="category === 'Default'" fxLayout="row" fxFill>
+                            <li class="item" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center"
+                                [class.selected]="category === selectedCategory" (click)="onSelect(category)">
+                                <div fxFlex>{{'All Devices' | uppercase}}</div>
+                                <!--                                <mat-icon *ngIf="category === selectedCategory" svgIcon="arrow_left"></mat-icon>-->
+                                <svg-icon *ngIf="category === selectedCategory" src="../../assets/icons/arrow_left.svg"
+                                          [svgStyle]="{ 'width.px':20, 'height.px':20}"></svg-icon>
+                            </li>
+                        </div>
+                        <div *ngIf="category !== 'Default'" fxLayout="row" fxFill>
+                            <li class="item" fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center"
+                                [class.selected]="category === selectedCategory" (click)="onSelect(category)">
+                                <div fxFlex>{{category | uppercase}}</div>
+<!--                                <mat-icon *ngIf="category === selectedCategory" svgIcon="arrow_left"></mat-icon>-->
+                                <svg-icon *ngIf="category === selectedCategory" src="../../assets/icons/arrow_left.svg"
+                                          [svgStyle]="{ 'width.px':20, 'height.px':20}"></svg-icon>
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+    </div>
+</div>

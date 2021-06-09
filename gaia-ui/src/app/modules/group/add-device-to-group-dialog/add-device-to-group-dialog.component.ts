@@ -35,7 +35,6 @@ export class AddDeviceToGroupDialogComponent implements OnInit {
   }
 
   addDevices() {
-    console.log(this.devices.value);
     this.devices.value.forEach((device) => {
       this.groupService.addDeviceToGroup(this.group.id, device.id).subscribe();
     });

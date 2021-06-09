@@ -52,7 +52,7 @@
                     </li>
                     <li fxLayoutAlign="start center" class="addGroupListItem" *ngIf="addGroupActive">
                         <form [formGroup]="addGroupForm" fxLayout="row" fxLayoutGap="5px" class="form-container">
-                            <input type="text" xFlex="1 1 auto" class="form-input" id="text"
+                            <input type="text" xFlex="1 1 auto" class="form-input" id="text" value=""
                                 formControlName="groupName">
                             <button mat-raised-button (click)="addGroupActive=false" class="inputButton">
                                 <mat-icon class="icon" svgIcon="trash"></mat-icon>

@@ -1,4 +1,7 @@
 /* eslint-disable */
+import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -12,10 +15,12 @@ export type Scalars = {
   Float: number;
 };
 
+
+
 export enum Category {
-  Light = 'LIGHT',
-  Sensor = 'SENSOR',
-  Default = 'DEFAULT'
+  Default = 'Default',
+  Light = 'Light',
+  Sensor = 'Sensor'
 }
 
 export type Device = {
@@ -177,6 +182,29 @@ export type GetAllDevicesQuery = (
   )>>> }
 );
 
+export type GetDevicesOfCategoryQueryVariables = Exact<{
+  category: Category;
+}>;
+
+
+export type GetDevicesOfCategoryQuery = (
+  { __typename?: 'Query' }
+  & { getDevicesOfCategory?: Maybe<Array<Maybe<(
+    { __typename?: 'Device' }
+    & Pick<Device, 'id' | 'name' | 'category'>
+    & { fn?: Maybe<(
+      { __typename?: 'Functions' }
+      & { power?: Maybe<(
+        { __typename?: 'Power' }
+        & Pick<Power, 'relay1' | 'relay2' | 'relay3'>
+      )>, sensor?: Maybe<(
+        { __typename?: 'Sensor' }
+        & Pick<Sensor, 'sensor1'>
+      )> }
+    )> }
+  )>>> }
+);
+
 export type GetDevicesOfGroupQueryVariables = Exact<{
   groupId: Scalars['String'];
 }>;
@@ -189,12 +217,15 @@ export type GetDevicesOfGroupQuery = (
     & Pick<Group, 'id'>
     & { devices?: Maybe<Array<Maybe<(
       { __typename?: 'Device' }
-      & Pick<Device, 'id' | 'name'>
+      & Pick<Device, 'id' | 'name' | 'category'>
       & { fn?: Maybe<(
         { __typename?: 'Functions' }
         & { power?: Maybe<(
           { __typename?: 'Power' }
           & Pick<Power, 'relay1' | 'relay2' | 'relay3'>
+        )>, sensor?: Maybe<(
+          { __typename?: 'Sensor' }
+          & Pick<Sensor, 'sensor1'>
         )> }
       )> }
     )>>> }
@@ -251,3 +282,190 @@ export type RemoveGroupMutation = (
     & Pick<Group, 'id'>
   )> }
 );
+
+export const ChangeDeviceStateDocument = gql`
+    mutation changeDeviceState($deviceId: String!, $fn: String!, $state: PowerState!) {
+  changeState(id: $deviceId, fn: $fn, state: $state) {
+    id
+    name
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ChangeDeviceStateGQL extends Apollo.Mutation<ChangeDeviceStateMutation, ChangeDeviceStateMutationVariables> {
+    document = ChangeDeviceStateDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetAllDevicesDocument = gql`
+    query getAllDevices {
+  devices {
+    id
+    name
+    category
+    mqttTopic
+    fn {
+      power {
+        relay1
+        relay2
+        relay3
+      }
+      sensor {
+        sensor1
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllDevicesGQL extends Apollo.Query<GetAllDevicesQuery, GetAllDevicesQueryVariables> {
+    document = GetAllDevicesDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetDevicesOfCategoryDocument = gql`
+    query getDevicesOfCategory($category: Category!) {
+  getDevicesOfCategory(category: $category) {
+    id
+    name
+    category
+    fn {
+      power {
+        relay1
+        relay2
+        relay3
+      }
+      sensor {
+        sensor1
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetDevicesOfCategoryGQL extends Apollo.Query<GetDevicesOfCategoryQuery, GetDevicesOfCategoryQueryVariables> {
+    document = GetDevicesOfCategoryDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetDevicesOfGroupDocument = gql`
+    query getDevicesOfGroup($groupId: String!) {
+  group(id: $groupId) {
+    id
+    devices {
+      id
+      name
+      category
+      fn {
+        power {
+          relay1
+          relay2
+          relay3
+        }
+        sensor {
+          sensor1
+        }
+      }
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetDevicesOfGroupGQL extends Apollo.Query<GetDevicesOfGroupQuery, GetDevicesOfGroupQueryVariables> {
+    document = GetDevicesOfGroupDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const AddDeviceToGroupDocument = gql`
+    mutation addDeviceToGroup($groupId: String!, $deviceId: String!) {
+  addDeviceToGroup(groupId: $groupId, deviceId: $deviceId) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AddDeviceToGroupGQL extends Apollo.Mutation<AddDeviceToGroupMutation, AddDeviceToGroupMutationVariables> {
+    document = AddDeviceToGroupDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const AddGroupDocument = gql`
+    mutation addGroup($name: String!) {
+  addGroup(name: $name) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class AddGroupGQL extends Apollo.Mutation<AddGroupMutation, AddGroupMutationVariables> {
+    document = AddGroupDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const GetAllGroupsDocument = gql`
+    query getAllGroups {
+  groups {
+    id
+    name
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class GetAllGroupsGQL extends Apollo.Query<GetAllGroupsQuery, GetAllGroupsQueryVariables> {
+    document = GetAllGroupsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const RemoveGroupDocument = gql`
+    mutation removeGroup($id: ID!) {
+  removeGroup(id: $id) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RemoveGroupGQL extends Apollo.Mutation<RemoveGroupMutation, RemoveGroupMutationVariables> {
+    document = RemoveGroupDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }

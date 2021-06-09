@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {
-  GetAllGroupsQuery, AddGroupMutation, RemoveGroupMutation, AddDeviceToGroupMutation,
+  GetAllGroupsQuery,
+  AddGroupMutation,
+  RemoveGroupMutation,
+  AddDeviceToGroupMutation,
+  GetAllGroupsDocument,
+  AddGroupDocument,
+  RemoveGroupDocument,
+  AddDeviceToGroupDocument,
+  GetDevicesOfGroupDocument,
 } from 'src/app/types';
-import getAllGroups from './GraphQL/getAllGroupsQuery.graphql';
-import AddGroup from './GraphQL/AddGroupMutation.graphql';
-import RemoveGroup from './GraphQL/RemoveGroupMutation.graphql';
-import AddDeviceToGroup from './GraphQL/AddDeviceToGroupMutation.graphql';
-import getDevicesOfGroup from '../device-service/GraphQL/getDevicesOfGroupQuery.graphql';
 
 @Injectable({
   providedIn: 'root',
@@ -17,32 +20,32 @@ export class GroupService {
 
   getAllGroups() {
     return this.apollo.watchQuery<GetAllGroupsQuery>({
-      query: getAllGroups,
+      query: GetAllGroupsDocument,
     })
       .valueChanges;
   }
 
   addGroup(name: String) {
     return this.apollo.mutate<AddGroupMutation>({
-      mutation: AddGroup,
+      mutation: AddGroupDocument,
       variables: { name },
-      refetchQueries: [{ query: getAllGroups }],
+      refetchQueries: [{ query: GetAllGroupsDocument }],
     });
   }
 
   removeGroup(id: String) {
     return this.apollo.mutate<RemoveGroupMutation>({
-      mutation: RemoveGroup,
+      mutation: RemoveGroupDocument,
       variables: { id },
-      refetchQueries: [{ query: getAllGroups }],
+      refetchQueries: [{ query: GetAllGroupsDocument }],
     });
   }
 
   addDeviceToGroup(groupId: string, deviceId: string) {
     return this.apollo.mutate<AddDeviceToGroupMutation>({
-      mutation: AddDeviceToGroup,
+      mutation: AddDeviceToGroupDocument,
       variables: { groupId, deviceId },
-      refetchQueries: [{ query: getDevicesOfGroup, variables: { groupId } }],
+      refetchQueries: [{ query: GetDevicesOfGroupDocument, variables: { groupId } }],
     });
   }
 }

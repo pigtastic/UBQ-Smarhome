@@ -1,0 +1,32 @@
+<ng-container [ngTemplateOutlet]=" media.isActive('xs') ? mobile : desktop"></ng-container>
+
+
+<ng-template #desktop>
+    <div class="view" fxLayout="row">
+        <category-menu *ngIf="!loading" fxLayout="column" fxFill fxFlex="20" (change)="categorySelected($event)">
+        </category-menu>
+        <category-content class="scroll-container" *ngIf="!loading" fxFlex [selectedCategory]=selectedCategory
+            (change)="categorySelected($event)">
+        </category-content>
+    </div>
+</ng-template>
+
+<ng-template #mobile>
+    <mat-drawer-container class="view" hasBackdrop="true">
+        <mat-drawer [(opened)]="opened" class="background-color" #drawer mode="over">
+            <category-menu *ngIf="!loading" (change)="categorySelected($event)">
+            </category-menu>
+        </mat-drawer>
+        <mat-drawer-content fxLayout="column">
+            <div fxLayout="row" fxLayoutAlign="start center" class="background-color mat-elevation-z4 z-index-1">
+                <button type="button" mat-button (click)="drawer.toggle()">
+                    <mat-icon class="burger-icon" svgIcon="burger-menu"></mat-icon>
+                </button>
+                <!-- <div class="category-title" *ngIf="!loading">{{selectedCategory}}</div> -->
+            </div>
+            <category-content class="scroll-container" *ngIf="!loading" fxFlex [selectedCategory]=selectedCategory
+                (change)="categorySelected($event)">
+            </category-content>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</ng-template>

@@ -1,0 +1,13 @@
+@import "../../../../styles2.scss";
+:host {
+    background-color: $tertiary;
+    padding: 5px;
+}
+
+.group-title {
+    font-size: x-large;
+    margin: 5px;
+}
+.widget {
+    margin: 5px;
+}

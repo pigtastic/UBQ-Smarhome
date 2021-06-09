@@ -15,9 +15,11 @@ interface Language {
 })
 
 export class SettingsComponent {
+  selected = 'english-1';
+
   languages: Language[] = [
     { value: 'deutsch-0', viewValue: 'Deutsch' },
-    { value: 'englisch-1', viewValue: 'Englisch' },
+    { value: 'english-1', viewValue: 'English' },
     { value: 'python-2', viewValue: 'Python' },
   ];
 

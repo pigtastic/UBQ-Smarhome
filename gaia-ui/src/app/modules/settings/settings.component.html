@@ -1,13 +1,13 @@
-<div class="settingsBorder">
+<div class="view">
     <h1>Settings</h1>
     <div class="settingsLayout" fxLayout="column">
-        <div>
+        <div class="setting">
             <form class="example-form">
                 <h4>Gaia Server</h4>
                 <div>
                     <mat-form-field style="font-size: 12px" appearance="outline">
                         <label>
-                            <input matInput placeholder="127.0.0.1" [(ngModel)]="server" [readonly]="isReadonly" name="server">
+                            <input matInput value="192.168.1.32" [readonly]="isReadonly" name="server">
                         </label>
                     </mat-form-field>
                     <button mat-icon-button type='button'>
@@ -16,26 +16,26 @@
                 </div>
             </form>
         </div>
-            <mat-divider></mat-divider>
-        <div>
-                <h4>Choose a color Theme</h4>
-                <div fxLayout="row">
-                    <button>1</button>
-                    <button>1</button>
-                    <button>1</button>
-                </div>
+        <mat-divider></mat-divider>
+        <div class="setting">
+            <h4>Choose a color Theme</h4>
+            <div fxLayout="row" fxLayoutGap="10px">
+                <button color="primary" mat-raised-button> Blue</button>
+                <button color="accent" mat-raised-button> Purple</button>
+                <button color="warn" mat-raised-button>Red</button>
+            </div>
         </div>
-            <mat-divider></mat-divider>
-        <div>
+        <mat-divider></mat-divider>
+        <div class="setting">
             <h4>Sprache</h4>
-            <mat-form-field appearance="fill" style="font-size: 12px">
-                <mat-select>
+            <mat-form-field appearance="fill" style="font-size: 12px; color: white">
+                <mat-select [(value)]="selected">
                     <mat-option *ngFor="let language of languages" [value]="language.value">
                         {{language.viewValue}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
-            <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
     </div>
 </div>

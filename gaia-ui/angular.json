@@ -14,11 +14,8 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.angular.config.ts"
-            },
             "outputPath": "dist/gaia-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -55,7 +52,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "gaia-app:build"
           },
@@ -66,13 +63,13 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-builders/custom-webpack:extract-i18n",
+          "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "gaia-app:build"
           }
         },
         "test": {
-          "builder": "@angular-builders/custom-webpack:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
@@ -90,7 +87,7 @@
           }
         },
         "lint": {
-          "builder": "@angular-builders/custom-webpack:tslint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
               "tsconfig.app.json",
@@ -108,7 +105,7 @@
       "projectType": "application",
       "architect": {
         "e2e": {
-          "builder": "@angular-builders/custom-webpack:protractor",
+          "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
             "devServerTarget": "gaia-app:serve"
@@ -120,7 +117,7 @@
           }
         },
         "lint": {
-          "builder": "@angular-builders/custom-webpack:tslint",
+          "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [

@@ -1,2 +1,8 @@
-<p>dashboard works!</p>
-<weather-widget></weather-widget>
+<div class="view" fxLayout="row wrap" fxLayoutGap="5px">
+    <weather-widget class="widget"></weather-widget>
+    <ng-container *ngFor="let device of allDevices">
+        <light-widget *ngIf="device.category === 'Light'" class="widget" [device]="device"></light-widget>
+        <sensor-widget *ngIf="device.category === 'Sensor'" class="widget" [device]="device"></sensor-widget>
+    </ng-container>
+
+</div>

@@ -1,0 +1,18 @@
+query getDevicesOfCategory($category: Category!) {
+  getDevicesOfCategory(category: $category) {
+    id
+    name
+    category
+    fn {
+      power {
+        relay1
+        relay2
+        relay3
+      }
+      sensor {
+        sensor1
+      }
+    }
+  }
+}
+

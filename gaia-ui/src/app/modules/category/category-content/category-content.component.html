@@ -1,9 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between">
-    <div class="group-title"> {{selectedGroup.name}}</div>
-    <button class="edit-button" type="button" mat-button (click)="openAddDeviceToGroupDialog()">
-        <mat-icon class="icon" svgIcon="add"></mat-icon>
-    </button>
-
+    <div *ngIf="selectedCategory !== 'Default'" class="group-title"> {{selectedCategory}}</div>
+    <div *ngIf="selectedCategory === 'Default'" class="group-title"> All Devices</div>
 </div>
 <div fxLayout="row wrap">
     <ng-container *ngFor="let device of devices">

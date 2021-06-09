@@ -1,16 +1,20 @@
-<div id="divWeatherMain"> 
-    <div *ngIf="WeatherData.isDay" class="weatherWidgetRow">
-        <i class="fas fa-3x fa-sun sun"></i>  
-    </div>   
-    <div *ngIf="!WeatherData.isDay" class="weatherWidgetRow">
-        <i class="fas fa-3x fa-moon moon"></i>  
-    </div>   
-    <div class="weatherWidgetRow cloudDiv">
-        <i class="fas fa-cloud fa-3x cloud"></i>
+<div fxLayout="column" fxLayoutAlign="space-evenly center" id="divWeatherMain">
+    <div style="font-size: 25px;">{{WeatherData.name}}</div>
+    <div *ngIf="WeatherData.isDay">
+        <mat-icon class="weather-icon" svgIcon="sun"></mat-icon>
     </div>
-    <div class="weatherWidgetRow" style="font-size: 32px;margin-top: 5px;">{{WeatherData.temp_celcius}}°</div>
-    <div class="weatherWidgetRow" style="font-size: 12px;">{{WeatherData.temp_min}}° / {{WeatherData.temp_max}}°</div>
-    <div class="weatherWidgetRow" style="font-size: 12px;">Gefühlt: {{WeatherData.temp_feels_like}}°</div>
-    <div class="weatherWidgetRow" style="font-size: 25px;margin-top: 10px;">{{WeatherData.name}}</div>
-    <div class="weatherWidgetRow" style="font-size: 12px;">Feuchtigkeit: {{WeatherData.main.humidity}}%</div>
+    <div *ngIf="!WeatherData.isDay">
+        <mat-icon class="weather-icon" svgIcon="moon"></mat-icon>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <div style="font-size: 32px;margin-top: 5px;">{{WeatherData.temp_celcius}}°</div>
+        <div style="font-size: 12px;">Feels like: {{WeatherData.temp_feels_like}}°</div>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+
+        <div style="font-size:  20px;">Max: {{WeatherData.temp_min}}°</div>
+        <div style="font-size:  20px;">Min: {{WeatherData.temp_max}}°</div>
+    </div>
+
+    <div style="font-size: 12px;">Humidity: {{WeatherData.main.humidity}}%</div>
 </div>

@@ -1,0 +1,98 @@
+@import "../../../../styles2.scss";
+:host {
+  background-color: $secondary;
+}
+
+.control-title {
+  height: 80px;
+  padding: 0 0em 0 2em;
+}
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.groups-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.groups {
+  margin: 0 0 0 0;
+  list-style-type: none;
+  padding: 0;
+  font-size: 13px;
+  width: 100%;
+  position: start;
+}
+
+.groups li {
+  position: relative;
+  left: 0;
+  width: 100%;
+  padding: 0 0em 0 2em;
+  border-radius: 4px;
+  height: 50px;
+  overflow: hidden;
+}
+
+li.item {
+  cursor: pointer;
+}
+li:hover.item {
+  background-color: darken($secondary, 5%);
+}
+li.selected.item {
+  background-color: darken($secondary, 5%);
+  color: $primary;
+  svg-icon {
+    fill: $primary;
+  }
+}
+li.selected:hover.item {
+  background-color: lighten($secondary, 5%);
+}
+
+.groups-item {
+  position: start;
+  display: block;
+  text-align: start;
+}
+
+.inputButton {
+  min-width: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+mat-form-field-wrapper {
+  background-color: white;
+}
+
+.form-container {
+  margin-right: 5px;
+}
+.form-input {
+  height: 30px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: white;
+  border: solid 1px var(--pale-grey);
+  font-size: 14px;
+  font-weight: 600;
+  color: gray;
+  text-indent: 10px;
+  padding: 0;
+}
+
+.icon {
+  width: 15px;
+  height: 15px;
+  margin-top: -22px;
+  margin-left: -7px;
+}
+.add-icon {
+  height: 15px;
+  width: 15px;
+}

@@ -18,7 +18,6 @@ export class WeatherWidgetComponent implements OnInit {
     };
 
     this.getWeatherData();
-    console.log(this.WeatherData);
   }
 
   getWeatherData() {
@@ -28,6 +27,7 @@ export class WeatherWidgetComponent implements OnInit {
   }
 
   setWeatherData(data) {
+    console.log(data);
     this.WeatherData = data;
     const sunsetTime = new Date(this.WeatherData.sys.sunset * 1000);
     this.WeatherData.sunset_time = sunsetTime.toLocaleTimeString();
