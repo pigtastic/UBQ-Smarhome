@@ -11,7 +11,7 @@ docker pull pigtastic/gaia-ui
 docker pull pigtastic/gaia-server
 docker pull andresvidal/rpi3-mongodb3
 
-echor "Create mongodb directory"
+echo "Create mongodb directory"
  mkdir -p ~/mongo/data
 
 # Start Containers

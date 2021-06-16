@@ -35,11 +35,12 @@ services:
   mongodb-pi:
     image: andresvidal/rpi3-mongodb3:latest
     profiles: [ "pi" ]
+    container_name: gaia-db
     restart: always
     ports:
       - "4001:27017"
-    volumes:
-      - ~/mongo/data:/data/db
+    #volumes:
+    # - ~/mongo/data:/data/db
     networks:
       - gaia-network
 
